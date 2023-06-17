@@ -1,13 +1,13 @@
-const demo = true;
+const DEMO = false;
+
 let input;
-if (demo) {
+if (DEMO) {
   input = await Deno.readTextFile('./demoInput.txt');
 } else {
   input = await Deno.readTextFile('./input.txt');
 }
 
 let inputArr = input.split('\n');
-console.log(inputArr);
 inputArr = inputArr.map((i) => {
   if (i === '\r') {
     return i;
@@ -16,22 +16,25 @@ inputArr = inputArr.map((i) => {
   }
 });
 
-const calories = [];
+let calories = [];
 
 inputArr.reduce((accumulator, currentValue, i) => {
   if (currentValue === '\r' || i === inputArr.length - 1) {
-    calories.push({ i, calories: Number(accumulator + currentValue) });
+    calories.push(Number(accumulator + currentValue));
     return 0;
   } else {
     return accumulator + currentValue;
   }
 });
 
-let result = { calories: 0 };
-calories.forEach((c) => {
-  if (c.calories > result.calories) {
-    result = c;
+calories = calories.sort((a, b) => {
+  if (a > b) {
+    return -1;
+  } else {
+    return 1;
   }
 });
 
+const topThreeCalories = calories.slice(0, 3);
+const result = topThreeCalories.reduce((a, c) => a + c);
 console.log(result);
