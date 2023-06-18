@@ -8,14 +8,44 @@ inputArr = inputArr.map((input) => {
 
 inputArr = inputArr.map((input) => {
   return input.map((i) => {
-    if (i === 'X' || i === 'A') {
+    if (i === 'A') {
       return 'Rock';
-    } else if (i === 'Y' || i === 'B') {
+    } else if (i === 'B') {
       return 'Paper';
-    } else if (i === 'Z' || i === 'C') {
+    } else if (i === 'C') {
       return 'Scissor';
+    } else {
+      return i;
     }
   });
+});
+
+inputArr = inputArr.map((i) => {
+  if (i[0] === 'Rock') {
+    if (i[1] === 'X') {
+      return ['Rock', 'Scissor'];
+    } else if (i[1] === 'Y') {
+      return ['Rock', 'Rock'];
+    } else if (i[1] === 'Z') {
+      return ['Rock', 'Paper'];
+    }
+  } else if (i[0] === 'Paper') {
+    if (i[1] === 'X') {
+      return ['Paper', 'Rock'];
+    } else if (i[1] === 'Y') {
+      return ['Paper', 'Paper'];
+    } else if (i[1] === 'Z') {
+      return ['Paper', 'Scissor'];
+    }
+  } else if (i[0] === 'Scissor') {
+    if (i[1] === 'X') {
+      return ['Scissor', 'Paper'];
+    } else if (i[1] === 'Y') {
+      return ['Scissor', 'Scissor'];
+    } else if (i[1] === 'Z') {
+      return ['Scissor', 'Rock'];
+    }
+  }
 });
 
 let score = 0;
