@@ -1,8 +1,5 @@
-import { getInput } from '../utils/main.js';
-import * as path from 'https://deno.land/std/path/mod.ts';
-const dirname = path.dirname(path.fromFileUrl(import.meta.url));
-const DEMO = false;
-const input = await getInput(DEMO, dirname);
+import { getInput } from '../utils/utils.js';
+const input = await getInput();
 
 let inputArr = input.split('\n');
 inputArr = inputArr.map((i) => {
