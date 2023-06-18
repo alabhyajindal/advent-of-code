@@ -31,11 +31,17 @@ const contains = expandedSectionPairs.filter((pair) => {
   const firstPair = pair[0];
   const secondPair = pair[1];
 
-  const [firstStart, firstEnd] = firstPair.split('-');
-  const [secondStart, secondEnd] = secondPair.split('-');
+  let [firstStart, firstEnd] = firstPair.split('-');
+  let [secondStart, secondEnd] = secondPair.split('-');
+
+  firstStart = Number(firstStart);
+  firstEnd = Number(firstEnd);
+  secondStart = Number(secondStart);
+  secondEnd = Number(secondEnd);
+
   if (
-    Number(firstStart) >= Number(secondStart) &&
-    Number(firstEnd) <= Number(secondEnd)
+    (firstStart >= secondStart && firstStart <= secondEnd) ||
+    (firstEnd >= secondStart && firstEnd <= secondEnd)
   ) {
     return true;
   } else {
@@ -43,6 +49,5 @@ const contains = expandedSectionPairs.filter((pair) => {
   }
 });
 
-console.log(contains);
 const count = contains.length;
 console.log(count);
