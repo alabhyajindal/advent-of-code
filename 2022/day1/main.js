@@ -1,11 +1,8 @@
+import { getInput } from '../utils/main.js';
+import * as path from 'https://deno.land/std/path/mod.ts';
+const dirname = path.dirname(path.fromFileUrl(import.meta.url));
 const DEMO = false;
-
-let input;
-if (DEMO) {
-  input = await Deno.readTextFile('./demoInput.txt');
-} else {
-  input = await Deno.readTextFile('./input.txt');
-}
+const input = await getInput(DEMO, dirname);
 
 let inputArr = input.split('\n');
 inputArr = inputArr.map((i) => {
