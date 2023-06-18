@@ -1,6 +1,0 @@
-{
-  "tasks": {
-    "example": "deno run --allow-read .\\2022\\day1\\main.js example",
-    "test": "deno run --allow-read .\\2022\\day1\\main.js test"
-  }
-}
