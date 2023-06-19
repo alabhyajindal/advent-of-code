@@ -46,24 +46,17 @@ const stacks = Object.keys(temp).map((key) => {
   return temp[key];
 });
 
+const localStacks = structuredClone(stacks);
 instructions.forEach((instruction) => {
-  const [newFrom, additions] = getNewAndAdditions(
-    stacks[instruction.from],
-    instruction.quantity
-  );
-  stacks[instruction.from] = newFrom;
-  stacks[instruction.to] = [...stacks[instruction.to], ...additions];
+  playInstructions(localStacks, instruction);
 });
 
-function getNewAndAdditions(from, quantityToRemove) {
-  let newFrom = [...from];
-  for (let i = 0; i < quantityToRemove; i++) {
-    newFrom.pop();
+function playInstructions(stacks, instruction) {
+  for (let i = 0; i < instruction.quantity; i++) {
+    const crate = stacks[instruction.from].pop();
+    stacks[instruction.to].push(crate);
   }
-  let additions = from.filter((x) => !newFrom.includes(x));
-  console.log(additions.reverse());
-  return [newFrom, additions];
 }
 
-// const topItems = stacks.map((s) => s[0]);
-// console.log(topItems.join(''));
+const topItems = localStacks.map((s) => s[s.length - 1]);
+console.log(topItems.join(''));
