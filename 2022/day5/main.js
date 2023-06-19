@@ -6,13 +6,11 @@ const instructionInput = inputLines.slice(breakerIndex + 1);
 
 const instructions = instructionInput.map((line) => {
   const quantity = Number(line.match(/(?<=move)(.*)(?=from)/g));
-  const from = Number(line.match(/(?<=from)(.*)(?=to)/g));
-  const to = Number(line.match(/(?<=to)(.*)/g));
+  const from = Number(line.match(/(?<=from)(.*)(?=to)/g)) - 1;
+  const to = Number(line.match(/(?<=to)(.*)/g)) - 1;
   const output = { quantity, from, to };
   return output;
 });
-
-console.log(instructions);
 
 let stackInput = [];
 for (let i = 0; i < inputLines.length; i++) {
@@ -46,6 +44,17 @@ for (let i = 0; i < stackInput.length; i++) {
 
 const stacks = Object.keys(temp).map((key) => {
   return temp[key];
+});
+
+// console.log(instructions);
+// console.log(stacks);
+
+instructions.forEach((instruction) => {
+  // const fromStack = stacks[instruction.from];
+  // const toStack = stacks[instruction.to];
+  const quantity = instruction.quantity;
+  stacks[instruction.from] = stacks[instruction.from].slice(0, quantity);
+  console.log(removedItems, stacks[instruction.from]);
 });
 
 // console.log(stacks);
