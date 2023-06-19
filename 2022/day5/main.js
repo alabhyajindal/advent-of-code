@@ -17,11 +17,30 @@ for (let i = 0; i < inputLines.length; i++) {
   }
 }
 stackInput.pop();
+stackInput.reverse();
 
-// console.log(stackInput);
-// console.log(stacksCount);
+const stacks = {};
 
-let stacks = {};
-stackInput.forEach((s) => {
-  console.log(s);
+for (let i = 0; i < stackInput.length; i++) {
+  const currentLine = stackInput[i];
+  for (let j = 0; j < currentLine.length; j++) {
+    const currentCharacter = currentLine[j];
+    if (
+      currentCharacter !== ' ' &&
+      currentCharacter !== '[' &&
+      currentCharacter !== ']'
+    ) {
+      if (typeof stacks[j] !== 'object') {
+        stacks[j] = [currentCharacter];
+      } else {
+        stacks[j].push(currentCharacter);
+      }
+    }
+  }
+}
+
+const temp = Object.keys(stacks).map((key) => {
+  return stacks[key];
 });
+
+console.log(temp);
