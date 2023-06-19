@@ -1,12 +1,18 @@
 import { getInput } from '../utils/utils.js';
 const input = await getInput();
 const inputLines = input.replaceAll('\r', '').split('\n');
-let stacksCount = 0;
-inputLines.forEach((line) => {
-  if (line.match(/ 1  /)) {
-    stacksCount = Number(line[line.length - 2]);
-  }
+const breakerIndex = inputLines.findIndex((line) => line === '');
+const instructionInput = inputLines.slice(breakerIndex + 1);
+
+const instructions = instructionInput.map((line) => {
+  const quantity = Number(line.match(/(?<=move)(.*)(?=from)/g));
+  const from = Number(line.match(/(?<=from)(.*)(?=to)/g));
+  const to = Number(line.match(/(?<=to)(.*)/g));
+  const output = { quantity, from, to };
+  return output;
 });
+
+console.log(instructions);
 
 let stackInput = [];
 for (let i = 0; i < inputLines.length; i++) {
@@ -19,8 +25,7 @@ for (let i = 0; i < inputLines.length; i++) {
 stackInput.pop();
 stackInput.reverse();
 
-const stacks = {};
-
+const temp = {};
 for (let i = 0; i < stackInput.length; i++) {
   const currentLine = stackInput[i];
   for (let j = 0; j < currentLine.length; j++) {
@@ -30,17 +35,17 @@ for (let i = 0; i < stackInput.length; i++) {
       currentCharacter !== '[' &&
       currentCharacter !== ']'
     ) {
-      if (typeof stacks[j] !== 'object') {
-        stacks[j] = [currentCharacter];
+      if (typeof temp[j] !== 'object') {
+        temp[j] = [currentCharacter];
       } else {
-        stacks[j].push(currentCharacter);
+        temp[j].push(currentCharacter);
       }
     }
   }
 }
 
-const temp = Object.keys(stacks).map((key) => {
-  return stacks[key];
+const stacks = Object.keys(temp).map((key) => {
+  return temp[key];
 });
 
-console.log(temp);
+// console.log(stacks);
