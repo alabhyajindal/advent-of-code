@@ -46,15 +46,24 @@ const stacks = Object.keys(temp).map((key) => {
   return temp[key];
 });
 
-// console.log(instructions);
-// console.log(stacks);
-
 instructions.forEach((instruction) => {
-  // const fromStack = stacks[instruction.from];
-  // const toStack = stacks[instruction.to];
-  const quantity = instruction.quantity;
-  stacks[instruction.from] = stacks[instruction.from].slice(0, quantity);
-  console.log(removedItems, stacks[instruction.from]);
+  const [newFrom, additions] = getNewAndAdditions(
+    stacks[instruction.from],
+    instruction.quantity
+  );
+  stacks[instruction.from] = newFrom;
+  stacks[instruction.to] = [...stacks[instruction.to], ...additions];
 });
 
-// console.log(stacks);
+function getNewAndAdditions(from, quantityToRemove) {
+  let newFrom = [...from];
+  for (let i = 0; i < quantityToRemove; i++) {
+    newFrom.pop();
+  }
+  let additions = from.filter((x) => !newFrom.includes(x));
+  console.log(additions.reverse());
+  return [newFrom, additions];
+}
+
+// const topItems = stacks.map((s) => s[0]);
+// console.log(topItems.join(''));
