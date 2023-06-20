@@ -52,10 +52,14 @@ instructions.forEach((instruction) => {
 });
 
 function playInstructions(stacks, instruction) {
+  let temp = [];
   for (let i = 0; i < instruction.quantity; i++) {
     const crate = stacks[instruction.from].pop();
-    stacks[instruction.to].push(crate);
+    // stacks[instruction.to].push(crate);
+    temp.push(crate);
   }
+  temp = temp.reverse();
+  stacks[instruction.to].push(...temp);
 }
 
 const topItems = localStacks.map((s) => s[s.length - 1]);
