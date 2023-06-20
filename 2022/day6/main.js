@@ -7,7 +7,7 @@ const input = await getInput();
 
 let temp = [];
 for (let i = 0; i < input.length; i++) {
-  if (temp.length === 4) {
+  if (temp.length === 14) {
     temp.shift();
   }
   temp.push(input[i]);
@@ -19,7 +19,7 @@ for (let i = 0; i < input.length; i++) {
       count++;
     }
   }
-  if (count === 4) {
+  if (count === 14) {
     console.log(i + 1);
     break;
   }
